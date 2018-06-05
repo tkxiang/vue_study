@@ -21,10 +21,12 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "../static/sass/mixin";
   .tab{
     display: flex;
     height: 40px;
     line-height: 40px;
+    @include border-1px(bottom,#ddd);
     &-item{
       flex:1;
       text-align: center;

@@ -1,0 +1,13 @@
+@mixin border-1px($way,$color){
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    #{$way}:0;
+    width: 100%;
+    border-top: 1px solid $color;
+    
+    transform: scaleY(0.7);
+  }
+}
