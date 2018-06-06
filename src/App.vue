@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <router-link to="/goods" class="tab-item">商品</router-link>
       <router-link to="/ratings" class="tab-item">评论</router-link>
@@ -13,7 +13,23 @@
 
 <script>
   import header from './components/header/header'
-  export default{
+  const ERR_OK = 0;
+  export default {
+    data() {
+      return {
+        seller: {}
+      }
+    },
+    mounted: function () {
+      this.$nextTick(function () {
+        this.$http.get('./api/seller').then(function (res) {
+          res = res.body;
+          if(res.errno === ERR_OK){
+            this.seller = res.data
+          }
+        })
+      })
+    },
     components: {
       'v-header': header
     }
@@ -22,17 +38,18 @@
 
 <style lang="scss" scoped>
   @import "../static/sass/mixin";
-  .tab{
+  @import "./common/sass/index";
+  .tab {
     display: flex;
     height: 40px;
     line-height: 40px;
-    @include border-1px(bottom,#ddd);
-    &-item{
-      flex:1;
+    @include border-1px(bottom, #ddd);
+    &-item {
+      flex: 1;
       text-align: center;
       color: #666;
       text-decoration: none;
-      &.active{
+      &.active {
         color: orange;
       }
     }
